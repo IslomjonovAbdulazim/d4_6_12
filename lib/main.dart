@@ -1,11 +1,12 @@
-import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:svg_flutter/svg.dart';
 
 void main() {
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => MyApp(),
     ),
   );
@@ -42,19 +43,66 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Text(
+                "Maqsadingiz nima?",
+                style: TextStyle(fontSize: 25),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Text(
+                  "Bu sizga eng yaxshi dasturni tanlashga yordam beradi",
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                child: CarouselSlider(
+                  items: List.generate(
+                    3,
+                    (index) => Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.pinkAccent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(
+                              "assets/img${index + 1}.svg",
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            titles[index],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            subtitles[index],
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  options: CarouselOptions(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
